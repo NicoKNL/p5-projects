@@ -11,7 +11,7 @@ function distance(a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
 
-function subdivide2() {
+function subdivide() {
     let new_points = {};
     let idx = 0;
     for (let i = 0; i < POINT_COUNT - 1; i++) {
@@ -37,25 +37,6 @@ function subdivide2() {
     POINT_COUNT = idx;
 }
 
-function subdivide() {
-    let new_points = {};
-    let idx = 0;
-    for (let i = 0; i < POINT_COUNT - 1; i++) {
-        let point_a = POINTS_ORDERED[i];
-        let point_b = POINTS_ORDERED[i + 1];
-        let point_c = point_a.copy().add(point_b).div(2);
-        TREE.insert(point_c);
-        new_points[idx] = point_a;
-        idx++;
-        new_points[idx] = point_c;
-        idx++;
-    }
-    new_points[idx] = POINTS_ORDERED[POINT_COUNT - 1];
-    idx++;
-    POINTS_ORDERED = new_points;
-    POINT_COUNT = 0;
-}
-
 function relax(iterations) {
     for (let iter = 0; iter < iterations; iter++) {
         let next_tree = new kdTree([], distance, ["x", "y"]);
@@ -67,7 +48,7 @@ function relax(iterations) {
             for (let pb of neighbours) {
                 let point_b = createVector(pb[0].x, pb[0].y);
                 let diff_vector = point_a.copy().sub(point_b);
-                offset.add(diff_vector).setMag(20 / iterations);
+                offset.add(diff_vector).setMag(RELAX_RADIUS / iterations);
             }
             let next_point_a = point_a.copy().add(offset);
             next_tree.insert(next_point_a);
@@ -81,7 +62,7 @@ function relax(iterations) {
 function setup() {
     createCanvas(1024, 1024);
     INITIAL_POINT_COUNT = 10;
-    RELAX_RADIUS = 50;
+    RELAX_RADIUS = 20;
     POINT_COUNT = 0;
     POINTS = [];
     POINTS_ORDERED = {};
@@ -115,6 +96,6 @@ function draw() {
     }
     endShape();
 
-    subdivide2();
+    subdivide();
     relax(10);
 }

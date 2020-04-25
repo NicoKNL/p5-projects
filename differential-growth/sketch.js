@@ -20,7 +20,7 @@ function subdivide() {
         
         new_points[idx] = point_a;
         idx++;
-
+        // if they are reasonably close, or 10% chance when they are reasonably distant...
         if (distance(point_a, point_b) >= 1.2 * RELAX_RADIUS || (random(1, 100) < 10 && distance(point_a, point_b) > 0.5 * RELAX_RADIUS)) {
             // Divide the edge in two equal parts by introducing center point
             let point_c = point_a.copy().add(point_b).div(2);

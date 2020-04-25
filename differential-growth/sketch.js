@@ -8,7 +8,33 @@ let TREE;
 
 
 function distance(a, b) {
-    return Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2);
+    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+}
+
+function subdivide2() {
+    let new_points = {};
+    let idx = 0;
+    for (let i = 0; i < POINT_COUNT - 1; i++) {
+        let point_a = POINTS_ORDERED[i];
+        let point_b = POINTS_ORDERED[i + 1];
+        
+        new_points[idx] = point_a;
+        idx++;
+
+        if (distance(point_a, point_b) >= 1.2 * RELAX_RADIUS || (random(1, 100) < 10 && distance(point_a, point_b) > 0.5 * RELAX_RADIUS)) {
+            // Divide the edge in two equal parts by introducing center point
+            let point_c = point_a.copy().add(point_b).div(2);
+            TREE.insert(point_c);
+            
+            new_points[idx] = point_c;
+            idx++;
+        }
+    }
+    new_points[idx] = POINTS_ORDERED[POINT_COUNT - 1];
+    idx++;
+    
+    POINTS_ORDERED = new_points;
+    POINT_COUNT = idx;
 }
 
 function subdivide() {
@@ -36,12 +62,12 @@ function relax(iterations) {
         let next_points_ordered = {};
         for (let i = 0; i < POINT_COUNT; i++) {
             let point_a = POINTS_ORDERED[i];
-            let neighbours = TREE.nearest(point_a, 5, RELAX_RADIUS);
+            let neighbours = TREE.nearest(point_a, 3, RELAX_RADIUS);
             let offset = createVector(0, 0);
             for (let pb of neighbours) {
                 let point_b = createVector(pb[0].x, pb[0].y);
                 let diff_vector = point_a.copy().sub(point_b);
-                offset.add(diff_vector.normalize());//.setMag(1 / iterations));
+                offset.add(diff_vector).setMag(20 / iterations);
             }
             let next_point_a = point_a.copy().add(offset);
             next_tree.insert(next_point_a);
@@ -55,7 +81,7 @@ function relax(iterations) {
 function setup() {
     createCanvas(1024, 1024);
     INITIAL_POINT_COUNT = 10;
-    RELAX_RADIUS = 100;
+    RELAX_RADIUS = 50;
     POINT_COUNT = 0;
     POINTS = [];
     POINTS_ORDERED = {};
@@ -89,6 +115,6 @@ function draw() {
     }
     endShape();
 
-    subdivide();
+    subdivide2();
     relax(10);
 }

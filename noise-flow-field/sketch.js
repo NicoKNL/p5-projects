@@ -1,11 +1,14 @@
 let particles;
 let iteration;
+let gridsize;
 
 function setup() {
-    createCanvas(1920, 1080);
+    createCanvas(640, 480);
+    //createCanvas(1920, 1080);
     iteration = 0;
     noStroke();
     background(0);
+    gridsize = 10;
 }
 
 function draw() {
@@ -27,7 +30,6 @@ function draw() {
     }
     update_particles();
     iteration++;
-    console.log(iteration);
 }
 
 function generate_particles(count, psize, pcolor) {
@@ -42,7 +44,8 @@ function generate_particles(count, psize, pcolor) {
 
 function update_particles() {
     for (let p of particles) {
-        let angle = noise(p.pos.x, p.pos.y) * 8 * PI;
+        //let angle = noise(p.pos.x, p.pos.y) * 8 * PI;
+        let angle = noise(Math.floor(p.pos.x / gridsize) * gridsize, Math.floor(p.pos.y / gridsize) * gridsize, iteration * 0.0003) * 8 * PI;
         let noise_field_force = p5.Vector.fromAngle(angle);
         p.add_force(noise_field_force);
         p.update();

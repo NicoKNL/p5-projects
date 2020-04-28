@@ -13,7 +13,7 @@ class Particle {
 
     update() {
         this.vel.add(this.acc);
-        this.vel.normalize();
+        this.vel.limit(4);
         this.pos.add(this.vel);
         this.acc.set(0, 0);
         

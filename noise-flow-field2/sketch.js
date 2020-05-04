@@ -24,7 +24,7 @@ function setup() {
     noStroke();
     iteration_limit = 500;
     particle_count = 500;
-    background(220, 20, 60);
+    background(170, 0, 34);
 }
 
 function draw() {

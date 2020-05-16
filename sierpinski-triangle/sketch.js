@@ -4,7 +4,6 @@ function setup() {
     stroke(0);
     noFill();
     max_depth = 1;
-
 }
 
 function draw() {

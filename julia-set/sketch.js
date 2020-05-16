@@ -23,18 +23,13 @@ class Complex {
     }
 }
 
-function is_in_mandelbrot_set(z) {
-    // let c = z.copy(); // Mandelbrot!
-    // let c = new Complex(1 - PHI, 0); // 1 - golden ratio
-    // let c = new Complex(PHI - 2, PHI - 1);
-    // let c = new Complex(0.285, 0);
-
+function is_in_set(z, c) {
     for (let i = 0; i < 100; i++) {
         // f_c(z) = z^2 + c
         z.square();
         z.add(c);
 
-        if (abs(z.a) > 4 || abs(z.b) > 4) {
+        if (abs(z.a) > 2 || abs(z.b) > 2) {
             return i;
         }
     }
@@ -64,7 +59,12 @@ function setup() {
             let b = map(y, 0, height, -1.5, 1.5);
             let z = new Complex(a, b);
 
-            let value = is_in_mandelbrot_set(z);
+            // let c = z.copy(); // Mandelbrot!
+            // let c = new Complex(1 - PHI, 0); // 1 - golden ratio
+            // let c = new Complex(PHI - 2, PHI - 1);
+            let c = new Complex(0.285, 0);
+
+            let value = is_in_set(z, c);
             color_pixel(x, y, value);
         }
     }

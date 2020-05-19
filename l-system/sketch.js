@@ -47,11 +47,11 @@ function setup() {
     // axiom = 'F';
 
     // FRACTAL!!-----------------------------------------------
-    // offset = 250;
-    // angle = radians(45);
-    // scale = .65;
-    // rules['F'] = 'F[+F][-F]';
-    // axiom = '[F][----F]';
+    offset = 250;
+    angle = radians(45);
+    scale = .65;
+    rules['F'] = 'F[+F][-F]';
+    axiom = '[F][----F]';
 
     // SIERPINSKI
     // offset = 50;
@@ -78,9 +78,8 @@ function setup() {
 
 function mousePressed() {
     depth += 1;
-    console.log('current sentence: ' + sentence);
+    // console.log('current sentence: ' + sentence);
     if (sentences.length > depth) {
-        console.log('true');
         sentence = sentences[depth];
     } else {
         sentence = generateNext();

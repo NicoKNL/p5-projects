@@ -1,9 +1,14 @@
 let max_depth;
+
+let c;
+let current_frame;
+
 function setup() {
-    createCanvas(1024, 1024);
+    c = createCanvas(1024, 1024);
     stroke(0);
     noFill();
     max_depth = 1;
+    current_frame = 0;
 }
 
 function draw() {
@@ -22,6 +27,10 @@ function draw() {
     }
 
     sierpinski(corners, 0);
+    let filename = `${current_frame}`
+    saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
+    current_frame += 1;
+    noLoop();
 }
 
 function sierpinski(corners, depth) {
@@ -58,4 +67,5 @@ function keyPressed() {
     } else if (keyCode === DOWN_ARROW) {
         max_depth--;
     }
+    redraw();
 }

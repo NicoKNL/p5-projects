@@ -5,9 +5,13 @@ let ca1D;
 let current_row;
 let rules;
 
+let c;
+let current_frame;
+
 function setup() {
     c = createCanvas(1024, 1024);
     background(255);
+    current_frame = 0;
     noStroke();
 
     cell_size = 4;
@@ -18,8 +22,7 @@ function setup() {
     // initRules(110);
     // initRules(26); // interesting
     // initRules(128); // interesting
-    initRules(60); // interesting
-    // initRules(91);
+    // initRules(60); // interesting
     // initRules(135);
     // let randomRuleSet = floor(random(1, 255))
     // initRules(randomRuleSet);
@@ -44,14 +47,16 @@ function draw() {
     if (current_row > columns) {
         noLoop();
     }
+
+    let filename = `${current_frame}`
+    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
+    current_frame += 1;
 }
 
 function update() {
     for (let col = 0; col < columns; col++) {
         let rule = getNeighborCode(col);
-        if (rule !== 0 || (rule === 0 && ca1D[col].alive)) {
-            ca1D[col].set(rules[rule]);
-        }
+        ca1D[col].set(rules[rule]);
     }
 
     for (let col = 0; col < columns; col++) {

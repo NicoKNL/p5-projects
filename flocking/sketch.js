@@ -1,9 +1,13 @@
 let BOIDS;
 let BOID_ID;
 
+let c;
+let current_frame;
+
 function setup() {
     // put setup code here
-    createCanvas(1280, 720);
+    c = createCanvas(1280, 720);
+    current_frame = 0;
     BOID_ID = 0;
     BOIDS = [];
 
@@ -33,4 +37,8 @@ function draw() {
         boid_a.update();
         boid_a.render();
     }
+
+    let filename = `${current_frame}`
+    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
+    current_frame += 1;
 }

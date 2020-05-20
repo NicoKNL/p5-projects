@@ -6,12 +6,13 @@ let depth;
 let offset;
 let angle;
 let scale;
-
+let c;
+let current_frame;
 function setup() {
-    createCanvas(1024, 1024);
+    c = createCanvas(1024, 1024);
     translate(width / 2, height / 2);
     rotate(radians(-90));
-
+    current_frame = 0;
     depth = 0;
     rules = {};
 
@@ -47,11 +48,11 @@ function setup() {
     // axiom = 'F';
 
     // FRACTAL!!-----------------------------------------------
-    offset = 250;
-    angle = radians(45);
-    scale = .65;
-    rules['F'] = 'F[+F][-F]';
-    axiom = '[F][----F]';
+    // offset = 250;
+    // angle = radians(45);
+    // scale = .65;
+    // rules['F'] = 'F[+F][-F]';
+    // axiom = '[F][----F]';
 
     // SIERPINSKI
     // offset = 50;
@@ -62,12 +63,12 @@ function setup() {
     // axiom = 'F-G-G';
 
     // PLANT
-    // offset = 4;
-    // angle = radians(25);
-    // scale = .9;
-    // rules['F'] = 'FF';
-    // rules['X'] = 'F+[[X]-X]-F[-FX]+X';
-    // axiom = 'X';
+    offset = 4;
+    angle = radians(25);
+    scale = .9;
+    rules['F'] = 'FF';
+    rules['X'] = 'F+[[X]-X]-F[-FX]+X';
+    axiom = 'X';
 
     sentences = [axiom];
     sentence = axiom;
@@ -129,4 +130,7 @@ function renderSentence() {
         }
     }
     pop();
+    let filename = `${current_frame}`
+    saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
+    current_frame += 1;
 }

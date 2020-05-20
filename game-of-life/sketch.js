@@ -2,7 +2,7 @@ let cell_size;
 let columns;
 let rows;
 let board;
-let next;
+
 let c;
 let current_frame;
 function setup() {
@@ -39,7 +39,7 @@ function draw() {
         }
     }
     let filename = `${current_frame}`
-    saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
+    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
     current_frame += 1;
     update();
 }

@@ -1,17 +1,12 @@
 let cell_size;
 let columns;
-
 let ca1D;
 let current_row;
 let rules;
 
-let c;
-let current_frame;
-
 function setup() {
-    c = createCanvas(1024, 1024);
+    createCanvas(1024, 1024);
     background(255);
-    current_frame = 0;
     noStroke();
 
     cell_size = 4;
@@ -19,20 +14,23 @@ function setup() {
 
     init();
 
-    // initRules(110);
-    // initRules(26); // interesting
-    // initRules(128); // interesting
-    // initRules(60); // interesting
-    // initRules(135);
+    // Example rules
+    initRules(110);
+    // initRules(26);
+    // initRules(128);
+    // initRules(60);
+
+    // Generate a random rule!
     // let randomRuleSet = floor(random(1, 255))
     // initRules(randomRuleSet);
     // console.log('Rule Set: ' + randomRuleSet);
+
     console.log(rules);
 }
 
 function draw() {
     for (let col = 0; col < columns; col++) {
-        if (ca1D[col].current_state == 1) {
+        if (ca1D[col].current_state === 1) {
             fill(0);
         } else {
             fill(255);
@@ -47,10 +45,6 @@ function draw() {
     if (current_row > columns) {
         noLoop();
     }
-
-    let filename = `${current_frame}`
-    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
-    current_frame += 1;
 }
 
 function update() {

@@ -6,10 +6,9 @@ let depth;
 let offset;
 let angle;
 let scale;
-let c;
-let current_frame;
+
 function setup() {
-    c = createCanvas(1024, 1024);
+    createCanvas(1024, 1024);
     translate(width / 2, height / 2);
     rotate(radians(-90));
     current_frame = 0;
@@ -130,7 +129,4 @@ function renderSentence() {
         }
     }
     pop();
-    let filename = `${current_frame}`
-    saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
-    current_frame += 1;
 }

@@ -3,11 +3,8 @@ let columns;
 let rows;
 let board;
 
-let c;
-let current_frame;
 function setup() {
-    c = createCanvas(512, 512);
-    current_frame = 0;
+    createCanvas(512, 512);
     frameRate(6);
     noStroke();
 
@@ -38,9 +35,6 @@ function draw() {
             rect(col * cell_size, row * cell_size, cell_size - 1, cell_size - 1);
         }
     }
-    let filename = `${current_frame}`
-    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
-    current_frame += 1;
     update();
 }
 

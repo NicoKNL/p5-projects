@@ -6,7 +6,7 @@ class Cell {
     }
 
     set(state) {
-        this.next_state = state + this.last_state % 2;
+        this.next_state = (state + this.last_state) % 2;
         this.last_state = this.current_state;
     }
 

@@ -1,4 +1,3 @@
-
 let INITIAL_POINT_COUNT;
 let POINT_COUNT;
 let POINTS;
@@ -6,11 +5,13 @@ let POINTS_ORDERED;
 let RELAX_RADIUS;
 let TREE;
 
-
 function distance(a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
 
+/**
+ * Applies subdivision on certain line segments by inserting a point.
+ */
 function subdivide() {
     let new_points = {};
     let idx = 0;
@@ -37,6 +38,10 @@ function subdivide() {
     POINT_COUNT = idx;
 }
 
+/**
+ * Point relaxation of all points, such that they become spaced out a bit more evenly
+ * @param iterations in how many steps to perform the relaxation. High iterations = smaller displacements every step.
+ */
 function relax(iterations) {
     for (let iter = 0; iter < iterations; iter++) {
         let next_tree = new kdTree([], distance, ["x", "y"]);

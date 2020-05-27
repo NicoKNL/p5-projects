@@ -9,8 +9,6 @@ function setup() {
     
     rotation = 0;
     circle_size = 50;
-
-    //createLoop({duration: 6, gif: true})
 }
 
 function draw() {

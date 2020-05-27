@@ -2,17 +2,14 @@ let cell_size;
 let columns;
 let rows;
 let ca2D;
-
 let rules;
-let c;
-let current_frame;
+
 
 function setup() {
     c = createCanvas(512, 512);
     background(255);
     frameRate(6);
     noStroke();
-    current_frame = 0;
     cell_size = 4;
     columns = floor(width / cell_size);
     rows = floor(height / cell_size);
@@ -21,22 +18,15 @@ function setup() {
     // initRandom();
     initCenter();
 
-    // initRules(2047);
+    // Example rules
+    initRules(1994);
+    // initRules(1410);
 
-    // initRules(391); // !!!
-
-    // initRules(1846); // !!!!!!!!!!!!!!!!1
-
-    // initRules(877);
-    // initRules(2003);
-
-    // initRules(1418); // !!!!!!
-
-    initRules(1994); // !!!!!!!!!!!!!!!!!!!!!!!!1
-
+    // Generate random rules
     // let randomRuleSet = (floor(random(1, 2047) / 2.0 ) * 2);
     // initRules(randomRuleSet);
     // console.log('Rule Set: ' + randomRuleSet);
+
     console.log(rules);
 }
 
@@ -54,9 +44,6 @@ function draw() {
     }
 
     update();
-    let filename = `${current_frame}`
-    // saveCanvas(c, "frame_" + filename.padStart(3, "0") + ".png");
-    current_frame += 1;
 }
 
 function update() {

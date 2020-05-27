@@ -11,7 +11,6 @@ let iteration_limit;
 let particle_count;
 
 function setup() {
-    //createCanvas(200, 200);
     createCanvas(1280, 720);
     scale = 10;
     columns = floor(width / scale);
@@ -65,7 +64,6 @@ function generate_particles(psize, pcolor) {
 
 function update_particles() {
     for (let p of particles) {
-        //let angle = noise(p.pos.x, p.pos.y) * 8 * PI
         let col = floor(p.pos.x / scale);
         let row = floor(p.pos.y / scale);
         let angle = noise(col * step, row * step, z_offset) * 2 * TWO_PI;
